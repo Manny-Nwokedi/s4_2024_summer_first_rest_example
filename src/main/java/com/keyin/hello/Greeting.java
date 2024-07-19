@@ -1,3 +1,4 @@
+
 package com.keyin.hello;
 
 import jakarta.persistence.*;
@@ -20,31 +21,24 @@ public class Greeting {
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
     public String getGreeting() {
         return greeting;
     }
-
     public void setGreeting(String greeting) {
         this.greeting = greeting;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public List<Language> getLanguages() {
         return languages;
     }
-
     public void setLanguages(List<Language> languages) {
         this.languages = languages;
     }

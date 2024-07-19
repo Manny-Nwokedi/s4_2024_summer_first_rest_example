@@ -1,3 +1,5 @@
+
+//GreetingService java
 package com.keyin.hello;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,6 @@ public class GreetingService {
 
         return null;
     }
-
     public Greeting createGreeting(Greeting newGreeting) {
         if (newGreeting.getLanguages() == null) {
             Language english = languageRepository.findByName("English");
@@ -46,28 +47,32 @@ public class GreetingService {
                 }
             }
         }
-
         return greetingRepository.save(newGreeting);
     }
-
     public List<Greeting> getAllGreetings() {
         return (List<Greeting>) greetingRepository.findAll();
     }
-
     public Greeting updateGreeting(Integer index, Greeting updatedGreeting) {
         Greeting greetingToUpdate = getGreeting(index);
 
+        if (updatedGreeting.getLanguages() != null) {
+            List<Language> updatedLanguages = new ArrayList<>();
+            for (Language language : updatedGreeting.getLanguages()) {
+                Language langInDB = languageRepository.findByName(language.getName());
+                if (langInDB == null) {
+                    langInDB = languageRepository.save(language);
+                }
+                updatedLanguages.add(langInDB);
+            }
+            greetingToUpdate.setLanguages(updatedLanguages);
+        }
         greetingToUpdate.setName(updatedGreeting.getName());
         greetingToUpdate.setGreeting(updatedGreeting.getGreeting());
-        greetingToUpdate.setLanguages(updatedGreeting.getLanguages());
-
         return greetingRepository.save(greetingToUpdate);
     }
-
     public void deleteGreeting(long index) {
         greetingRepository.delete(getGreeting(index));
     }
-
     public List<Greeting> findGreetingsByNameAndGreeting(String name, String greetingName) {
         return greetingRepository.findByNameAndGreeting(name, greetingName);
     }

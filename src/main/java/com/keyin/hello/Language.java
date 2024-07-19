@@ -1,3 +1,5 @@
+
+//Language java
 package com.keyin.hello;
 
 import jakarta.persistence.Entity;
@@ -16,6 +18,10 @@ public class Language {
 
     public Language() {
         this.name = "English";
+    }
+
+    public Language(String name) {
+        this.name = name;
     }
 
     public long getId() {
